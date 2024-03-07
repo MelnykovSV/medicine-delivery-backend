@@ -1,4 +1,4 @@
-import express from "express";
+
 const app = require("./app");
 const mongoose = require("mongoose");
 require("dotenv").config();
@@ -12,7 +12,7 @@ mongoose
   .connect(DB_HOST)
   .then(() => {
     console.log("Database connection successful");
-    app.listen(3000, () => {
+    app.listen(port, () => {
       console.log("Server running. Use our API on port: 3000");
     });
   })
