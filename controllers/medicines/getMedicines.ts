@@ -14,7 +14,11 @@ const getMedicines = async (req: IExtendedRequest, res: Express.Response) => {
     pharmacy,
   } = req.query;
 
-  const medicinesAmount = await Medicine.countDocuments({});
+  const medicinesAmount = await Medicine.countDocuments(
+    pharmacy ? { availableIn: pharmacy } : {}
+  );
+  console.log(medicinesAmount);
+  console.log(Number(limit));
 
   const totalPages = Math.ceil(medicinesAmount / Number(limit));
 
