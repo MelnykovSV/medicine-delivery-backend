@@ -3,6 +3,17 @@ import { Types } from "mongoose";
 export interface IExtendedRequest extends Express.Request {
   query: Record<string, string>;
   body: Record<string, string>;
+  params: Record<string, string>;
+}
+
+export interface IOrderRequest extends Express.Request {
+  query: Record<string, string>;
+  body: Record<
+    string,
+    | string
+    | { addressLine: string; lat: number; lon: number }
+    | { id: string; amount: number }[]
+  >;
 }
 export interface IError extends Error {
   status: number;

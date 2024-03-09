@@ -1,29 +1,10 @@
 const express = require("express");
 const ordersRouter = express.Router();
+const { validateBody } = require("./../../middlewares");
+const { orderJoiSchema } = require("./../../models/order");
+const { createOrder, getUserOrders } = require("./../../controllers/orders");
 
-// const {
-//   // createNewScheme,
-//   // deleteScheme,
-//   // getSchemes,
-//   // getSingleScheme,
-//   // updateSchemeStatus,
-//   // updateAttempt,
-//   // updateStage,
-//   // addAttempt,
-//   // uploadSpectr,
-//   // deleteSpectr,
-//   // // downloadSpectr,
-// //   getMedicines,
-// //   getMedicinesById,
-// } = require("./../../controllers/medicines");
-
-// const {
-//   // validateBody,
-//   // authenticate,
-//   // uploadCloud,
-// } = require("./../../middlewares/index");
-
-// medicinesRouter.get("/", getMedicines);
-// medicinesRouter.get("/map", getMedicinesById);
+ordersRouter.get("/:userId", getUserOrders);
+ordersRouter.post("/", validateBody(orderJoiSchema), createOrder);
 
 module.exports = ordersRouter;
