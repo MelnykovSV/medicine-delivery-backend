@@ -31,13 +31,17 @@ const createOrder = async (req: IOrderRequest, res: Express.Response) => {
     {} as Record<string, number>
   );
 
+  const shoppingCartWithPrices = (
+    shoppingCart as { id: string; amount: number }[]
+  ).map((item) => ({ ...item, price: priceList[item.id] }));
+
   const totalPrice = (shoppingCart as { id: string; amount: number }[]).reduce(
     (acc: number, item: { id: string; amount: number }) =>
       acc + priceList[item.id] * item.amount,
     0
   );
 
-  const data = await Order.create({ ...req.body, totalPrice });
+  const data = await Order.create({ ...req.body, shoppingCart:shoppingCartWithPrices, totalPrice });
 
   createResponse(res, 200, "Order created", data);
 };

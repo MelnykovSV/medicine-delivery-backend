@@ -28,6 +28,17 @@ const AddressSchema = new Schema(
 const ShoppingCartItemSchema = new Schema(
   {
     id: { type: String, required: true },
+    price: {
+      type: Number,
+      required: true,
+      validate: {
+        validator: function (num: number) {
+          return num > 0;
+        },
+        message: (props: CustomValidatorProps) =>
+          `${props.value} is not a positive number!`,
+      },
+    },
     amount: {
       type: Number,
       required: true,
