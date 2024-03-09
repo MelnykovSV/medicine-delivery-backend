@@ -8,8 +8,6 @@ const ctrlWrapper = (ctrl: Ctrl) => {
   ) => {
     try {
       await ctrl(req, res);
-
-      /// Removed next !!!!!
     } catch (error) {
       next(error);
     }

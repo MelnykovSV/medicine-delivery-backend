@@ -15,7 +15,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-// routers
 
 app.use("/api/medicines", medicinesRouter);
 app.use("/api/pharmacies", pharmaciesRouter);
@@ -38,7 +37,6 @@ app.use(
   ) => {
     const { status = 500, message = "Internal Server Error" } = err;
 
-    console.log(err);
 
     res.status(status).json({
       status: "error",

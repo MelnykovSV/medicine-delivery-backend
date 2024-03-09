@@ -45,8 +45,6 @@ const createOrder = async (req: IOrderRequest, res: Express.Response) => {
   }));
 
 
-  console.log('shoppingCartWithPrices', shoppingCartWithPrices)
-
   const totalPrice = (shoppingCart as { id: string; amount: number }[]).reduce(
     (acc: number, item: { id: string; amount: number }) =>
       acc + priceList[item.id].price * item.amount,

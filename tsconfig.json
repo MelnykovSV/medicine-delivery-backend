@@ -9,8 +9,8 @@
     "lib": ["es6"],
     "moduleDetection": "force",
 
-    "resolveJsonModule": true /* Enable importing .json files. */,
-    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
-    "strict": true /* Enable all strict type-checking options. */
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
   }
 }
