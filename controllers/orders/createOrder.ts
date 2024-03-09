@@ -26,22 +26,38 @@ const createOrder = async (req: IOrderRequest, res: Express.Response) => {
   const priceList = medicinesData.reduce(
     (acc, item) => ({
       ...acc,
-      [String(item._id)]: item.price,
+      [String(item._id)]: {
+        price: item.price,
+        name: item.name,
+        image: item.image,
+      },
     }),
-    {} as Record<string, number>
+    {} as Record<string, { price: number; name: string; image: string }>
   );
 
   const shoppingCartWithPrices = (
     shoppingCart as { id: string; amount: number }[]
-  ).map((item) => ({ ...item, price: priceList[item.id] }));
+  ).map((item) => ({
+    ...item,
+    price: priceList[item.id].price,
+    name: priceList[item.id].name,
+    image: priceList[item.id].image,
+  }));
+
+
+  console.log('shoppingCartWithPrices', shoppingCartWithPrices)
 
   const totalPrice = (shoppingCart as { id: string; amount: number }[]).reduce(
     (acc: number, item: { id: string; amount: number }) =>
-      acc + priceList[item.id] * item.amount,
+      acc + priceList[item.id].price * item.amount,
     0
   );
 
-  const data = await Order.create({ ...req.body, shoppingCart:shoppingCartWithPrices, totalPrice });
+  const data = await Order.create({
+    ...req.body,
+    shoppingCart: shoppingCartWithPrices,
+    totalPrice,
+  });
 
   createResponse(res, 200, "Order created", data);
 };
